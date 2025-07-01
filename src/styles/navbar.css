@@ -1,0 +1,223 @@
+/* Navbar styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: #000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  position: relative;
+  z-index: 100;
+}
+.nav-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff5757;
+  text-decoration: none;
+}
+.nav-logo-img {
+  height: 40px;
+  width: auto;
+  margin-right: 0.5rem;
+  display: block;
+  align-self: flex-start;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 1.5rem;
+}
+.navbar-link {
+  color: #4998da;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid #4998da;
+  border-radius: 8px;
+  background: #000;
+  display: inline-block;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.navbar-link:active,
+.navbar-link.selected {
+  color: #ff5757;
+}
+
+.navbar-programs-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.navbar-programs-btn {
+  color: #4998da;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #4998da;
+  border-radius: 8px;
+  background: #000;
+  display: inline-block;
+  transition: color 0.2s;
+}
+.navbar-programs-btn.active {
+  color: #fff;
+}
+
+.navbar-programs-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: #000;
+  border: 1.5px solid #4998da;
+  border-radius: 8px;
+  min-width: 170px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+  margin: 0;
+  list-style: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.navbar-programs-menu > li {
+  padding: 0.7rem 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  border-bottom: 1px solid #4998da;
+  position: relative;
+  white-space: nowrap;
+}
+.navbar-programs-menu > li:last-child {
+  border-bottom: none;
+}
+
+.navbar-programs-submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: #000;
+  border: 1.5px solid #4998da;
+  border-radius: 8px;
+  min-width: 220px;
+  z-index: 1100;
+  padding: 0.5rem 0;
+  margin: 0;
+  list-style: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.navbar-programs-submenu > li {
+  padding: 0.7rem 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Sidebar styles for mobile */
+.navbar-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70vw;
+  max-width: 320px;
+  height: 100vh;
+  background: #000;
+  z-index: 2000;
+  box-shadow: 2px 0 16px rgba(0,0,0,0.18);
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.navbar-sidebar.closed {
+  transform: translateX(-100%);
+}
+.navbar-sidebar.open {
+  transform: translateX(0);
+}
+.navbar-sidebar-close {
+  align-self: flex-end;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+}
+.navbar-sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.navbar-sidebar-link {
+  color: #4998da;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.navbar-sidebar-programs {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.navbar-sidebar-category {
+  color: #4998da;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+}
+.navbar-sidebar-category-arrow {
+  float: right;
+  color: #4998da;
+  font-weight: normal;
+  margin-left: 8px;
+}
+.navbar-sidebar-program-list {
+  margin-top: 0.3rem;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.navbar-sidebar-program-item {
+  color: #4998da;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.navbar-sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
+  z-index: 1999;
+}
+
+.navbar-mobile-menu-btn {
+  font-size: 2.2rem;
+  color: #4998da;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-cart-img {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 20px;
+  height: 20px;
+  z-index: 3000;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+  .navbar .nav-logo-img {
+    height: 40px;
+  }
+}
