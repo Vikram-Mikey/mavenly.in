@@ -83,20 +83,10 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'mavenly',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': 'mongodb+srv://rvikrams321:vikram@mavenly.cigeart.mongodb.net/?retryWrites=true&w=majority&appName=mavenly',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# Connect to MongoDB using mongoengine
-mongoengine.connect(
-    db='mavenly',
-    host='mongodb+srv://rvikrams321:vikram@mavenly.cigeart.mongodb.net/mavenly?retryWrites=true&w=majority&appName=mavenly',
-)
 
 
 # Password validation
