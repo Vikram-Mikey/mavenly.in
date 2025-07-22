@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-import mongoengine
 from corsheaders.defaults import default_headers
 import os
 
@@ -30,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fc#dw6gw7k72$eoft2jf*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
