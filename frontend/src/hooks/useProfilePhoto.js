@@ -5,8 +5,9 @@ export default function useProfilePhoto() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const userId = document.cookie.includes('user_id=');
-    if (!userId) {
+    // Only fetch if user is logged in
+    const hasUserId = document.cookie.split(';').some(c => c.trim().startsWith('user_id='));
+    if (!hasUserId) {
       setPhotoUrl('');
       setLoading(false);
       return;
@@ -15,18 +16,25 @@ export default function useProfilePhoto() {
       method: 'GET',
       credentials: 'include',
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          console.error('Profile fetch failed:', res.status, res.statusText);
+          throw new Error('Unauthorized');
+        }
+        return res.json();
+      })
       .then(data => {
         let url = data.photo_url || '';
         if (url && url.startsWith('/')) url = 'http://localhost:8000' + url;
         setPhotoUrl(url);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error('Error fetching profile photo:', err);
         setPhotoUrl('');
         setLoading(false);
       });
-  }, [document.cookie]);
+  }, []);
 
   return { photoUrl, loading };
 }

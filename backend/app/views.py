@@ -356,17 +356,13 @@ Best regards,\nMavenly Team
 
 class ContactEnquiryEmailView(APIView):
     def post(self, request):
+        import logging
         name = request.data.get('name')
         email = request.data.get('email')
         message = request.data.get('message')
         phone = request.data.get('phone')
-        # Accept both 'company' and 'subject' from request.data, default to blank if missing or None
-        company = request.data.get('company')
-        subject_text = request.data.get('subject')
-        if not company:
-            company = ''
-        if not subject_text:
-            subject_text = ''
+        company = request.data.get('company') or ''
+        subject_text = request.data.get('subject') or ''
         if not all([name, email, message]):
             return Response({'error': 'Name, email, and message are required.'}, status=status.HTTP_400_BAD_REQUEST)
         subject = '📩 New Enquiry Received - Mavenly'
@@ -388,17 +384,22 @@ Message:
 Please respond to the enquiry as soon as possible.
 """
         from django.conf import settings
-        send_mail(
-            subject,
-            message_body,
-            None,  # Use default from email
-            [getattr(settings, 'HOST_EMAIL', settings.DEFAULT_FROM_EMAIL)],
-            fail_silently=False,
-        )
-        return Response({'success': 'Enquiry email sent to host.'})
+        try:
+            send_mail(
+                subject,
+                message_body,
+                None,  # Use default from email
+                [getattr(settings, 'HOST_EMAIL', settings.DEFAULT_FROM_EMAIL)],
+                fail_silently=False,
+            )
+            return Response({'success': 'Enquiry email sent to host.'})
+        except Exception as e:
+            logging.exception("Failed to send enquiry email")
+            return Response({'error': f'Failed to send enquiry email: {str(e)}'}, status=500)
 
 class ProgramDevEnquiryEmailView(APIView):
     def post(self, request):
+        import logging
         name = request.data.get('name')
         email = request.data.get('email')
         phone = request.data.get('phone')
@@ -421,14 +422,18 @@ Program: {program}
 This is a program enquiry from the ProgramDevSection form.
 """
         from django.conf import settings
-        send_mail(
-            subject,
-            message,
-            None,  # Use default from email
-            [getattr(settings, 'HOST_EMAIL', settings.DEFAULT_FROM_EMAIL)],
-            fail_silently=False,
-        )
-        return Response({'success': 'Program enquiry email sent to host.'})
+        try:
+            send_mail(
+                subject,
+                message,
+                None,  # Use default from email
+                [getattr(settings, 'HOST_EMAIL', settings.DEFAULT_FROM_EMAIL)],
+                fail_silently=False,
+            )
+            return Response({'success': 'Program enquiry email sent to host.'})
+        except Exception as e:
+            logging.exception("Failed to send program enquiry email")
+            return Response({'error': f'Failed to send program enquiry email: {str(e)}'}, status=500)
 
 class FreelancingProgramDevEnquiryEmailView(APIView):
     def post(self, request):

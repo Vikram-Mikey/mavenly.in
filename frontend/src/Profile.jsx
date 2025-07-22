@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import API_BASE_URL from './config.js';
 import './styles/profile.css';
 
 const Profile = () => {
@@ -22,7 +22,7 @@ const Profile = () => {
   const photoMenuRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/profile/', {
+    fetch(`${API_BASE_URL}/api/profile/`, {
       method: 'GET',
       credentials: 'include',
     })
@@ -56,7 +56,7 @@ const Profile = () => {
     let data;
     let res;
     try {
-      res = await fetch('http://localhost:8000/api/send-verification-code/', {
+      res = await fetch(`${API_BASE_URL}/api/send-verification-code/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -89,7 +89,7 @@ const Profile = () => {
     let data;
     let res;
     try {
-      res = await fetch('http://localhost:8000/api/update-profile/', {
+      res = await fetch(`${API_BASE_URL}/api/update-profile/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -123,7 +123,7 @@ const Profile = () => {
     if (!photo) return;
     const formData = new FormData();
     formData.append('photo', photo);
-    const res = await fetch('http://localhost:8000/api/upload-profile-photo/', {
+    const res = await fetch(`${API_BASE_URL}/api/upload-profile-photo/`, {
       method: 'POST',
       credentials: 'include',
       body: formData
@@ -132,7 +132,7 @@ const Profile = () => {
     if (res.ok && data.photo_url) {
       let url = data.photo_url;
       if (url && url.startsWith('/')) {
-        url = 'http://localhost:8000' + url;
+        url = API_BASE_URL + url;
       }
       setPhotoUrl(url);
       setMessage('Profile photo updated!');
@@ -171,7 +171,7 @@ const Profile = () => {
     setShowPhotoMenu(false);
     setMessage('Removing photo...');
     try {
-      const res = await fetch('http://localhost:8000/api/remove-profile-photo/', {
+      const res = await fetch(`${API_BASE_URL}/api/remove-profile-photo/`, {
         method: 'POST',
         credentials: 'include',
       });

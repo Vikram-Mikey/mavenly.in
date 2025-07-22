@@ -19,7 +19,8 @@ function Contact() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8000/api/enquiry-email/', {
+      const API_BASE_URL = (await import('./config.js')).default;
+      const res = await fetch(`${API_BASE_URL}/api/enquiry-email/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -34,7 +35,8 @@ function Contact() {
       if (res.ok) {
         setSubmitted(true);
       } else {
-        alert('Failed to send enquiry.');
+        const data = await res.json();
+        alert(data.error ? `Failed to send enquiry: ${data.error}` : 'Failed to send enquiry.');
       }
     } catch (err) {
       alert('Network error.');

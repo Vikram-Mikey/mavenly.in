@@ -133,7 +133,8 @@ function ProgramDevSection({ className, imgSrc, imgAlt }) {
   const handleEnquirySubmit = async e => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8000/api/program-enquiry-email/', {
+      const API_BASE_URL = (await import('./config.js')).default;
+      const res = await fetch(`${API_BASE_URL}/api/program-enquiry-email/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
