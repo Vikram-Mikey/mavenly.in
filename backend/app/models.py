@@ -1,24 +1,23 @@
-from django.db import models
-import mongoengine
-from mongoengine import Document, StringField, EmailField, FileField
 
-# Create your models here.
-
-class User(Document):
-    username = StringField(required=True, unique=True)
-    email = EmailField(required=True, unique=True)
-    phone = StringField(required=True, min_length=10, max_length=10)
-    password = StringField(required=True)
-    photo_url = StringField()
-
+# Create your models here using Django ORM
 from django.db import models
 
-class ProgramReview(Document):
-    program = StringField(required=True, max_length=100)
-    name = StringField(required=True, max_length=100)
-    review = StringField(required=True)
-    rating = StringField(required=True, choices=["1", "2", "3", "4", "5"])
-    created_at = StringField(required=True)
+class User(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=10)
+    password = models.CharField(max_length=128)
+    photo_url = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.username
+
+class ProgramReview(models.Model):
+    program = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    review = models.TextField()
+    rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)])
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.program} - {self.name} ({self.rating} stars)"
