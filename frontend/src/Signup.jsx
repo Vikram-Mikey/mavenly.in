@@ -25,7 +25,8 @@ function Signup() {
       setError("Passwords do not match");
       return;
     }
-    const res = await fetch('http://localhost:8000/api/signup/', {
+    const API_BASE_URL = (await import('./config.js')).default;
+    const res = await fetch(`${API_BASE_URL}/api/signup/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
