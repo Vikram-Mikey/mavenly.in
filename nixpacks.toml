@@ -9,7 +9,7 @@ cmds = [
 
 [phases.build-frontend]
 cmds = [
-  "cd frontend && export PATH=$(npm bin):$PATH && npm run build"
+  "cd frontend && npm run build"
 ]
 
 [phases.install-backend]
