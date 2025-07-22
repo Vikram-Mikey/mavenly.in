@@ -18,6 +18,8 @@ FROM python:3.11-slim
 WORKDIR /app
 COPY --from=backend /app/backend /app/backend
 COPY --from=frontend /app/frontend/dist /app/backend/static
+COPY backend/requirements.txt ./backend/requirements.txt
+RUN pip install --upgrade pip && pip install -r ./backend/requirements.txt
 
 ENV PYTHONUNBUFFERED=1
 
